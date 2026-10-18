@@ -19,6 +19,8 @@ import ImageCard from '../../components/ImageCard'
 export default function OrdersScreen ({ navigation, route }) {
   const [restaurant, setRestaurant] = useState({})
 
+  const [order, setOrder] = useState(null)
+
   useEffect(() => {
     fetchRestaurantDetail()
   }, [route])

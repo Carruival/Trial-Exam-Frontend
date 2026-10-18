@@ -30,8 +30,16 @@ export default function OrdersScreen ({ navigation, route }) {
 
   const fetchRestaurantAnalytics = async () => {
     try {
-
-    } catch 
+      const restaurantAnalytics = getRestaurantAnalytics()
+      setAnalytics(restaurantAnalytics)
+    } catch (error) {
+      showMessage({
+        message: `There was an error while retrieving restaurant analytics (id ${route.params.id}). ${error}`,
+        type: 'error',
+        style: GlobalStyles.flashStyle,
+        titleStyle: GlobalStyles.flashTextStyle
+      })
+    } 
   }
 
   const fetchRestaurantOrders = async () => {

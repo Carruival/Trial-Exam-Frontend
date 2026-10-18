@@ -24,11 +24,14 @@ export default function OrdersScreen ({ navigation, route }) {
 
   useEffect(() => {
     fetchRestaurantDetail()
-    
+    fetchRestaurantAnalytics()
+    fetchRestaurantOrders()
   }, [route])
 
   const fetchRestaurantAnalytics = async () => {
+    try {
 
+    } catch 
   }
 
   const fetchRestaurantOrders = async () => {

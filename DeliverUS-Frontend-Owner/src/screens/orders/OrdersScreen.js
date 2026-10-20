@@ -295,7 +295,8 @@ const styles = StyleSheet.create({
     paddingVertical: 10
   },
   analyticsRow: {
-
+    flexDirection: 'row', // SOLUTION. Excercise - Restaurant analytics
+    justifyContent: 'space-around' // SOLUTION. Excercise - Restaurant analytics
   },
   analyticsCell: {
     margin: 5,

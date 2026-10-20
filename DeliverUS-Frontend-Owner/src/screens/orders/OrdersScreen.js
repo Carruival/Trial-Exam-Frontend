@@ -44,7 +44,7 @@ export default function OrdersScreen ({ navigation, route }) {
 
   const fetchRestaurantOrders = async () => {
     try {
-      const order = getRestaurantOrders()
+      const order = await getRestaurantOrders()
       setOrder(order)
     } catch (error) {
       showMessage({

@@ -80,44 +80,44 @@ export default function OrdersScreen ({ navigation, route }) {
   const renderAnalytics = () => {
     return (
       <View style={styles.analyticsContainer}>
-          <View style={styles.analyticsRow}>
-            <View style={styles.analyticsCell}>
-              <TextRegular textStyle={styles.text}>
-                Invoiced today
-              </TextRegular>
-              <TextSemiBold textStyle={styles.text}>
+        <View style={styles.analyticsRow}>
+          <View style={styles.analyticsCell}>
+            <TextRegular textStyle={styles.text}>
+              Invoiced today
+            </TextRegular>
+            <TextSemiBold textStyle={styles.text}>
               {analytics.invoicedToday.tofixed(2)}€
-              </TextSemiBold>
-            </View>
-            <View style={styles.analyticsCell}>
-              <TextRegular textStyle={styles.text}>
-                #Pending orders
-              </TextRegular>
-              <TextSemiBold textStyle={styles.text}>
-              {analytics.numPendingOrders}
-              </TextSemiBold>
-            </View>
+            </TextSemiBold>
           </View>
-
-          <View style={styles.analyticsRow}>
-            <View style={styles.analyticsCell}>
-                <TextRegular textStyle={styles.text}>
-                  #Delivered today
-                </TextRegular>
-                <TextSemiBold textStyle={styles.text}>
-                {analytics.numDeliveredTodayOrders}
-                </TextSemiBold>
-              </View>
-              <View style={styles.analyticsCell}>
-                <TextRegular textStyle={styles.text}>
-                  #Yesterday orders
-                </TextRegular>
-                <TextSemiBold textStyle={styles.text}>
-                {analytics.numYesterdayOrders}
-                </TextSemiBold>
-              </View>
+          <View style={styles.analyticsCell}>
+            <TextRegular textStyle={styles.text}>
+              #Pending orders
+            </TextRegular>
+            <TextSemiBold textStyle={styles.text}>
+              {analytics.numPendingOrders}
+            </TextSemiBold>
           </View>
         </View>
+
+        <View style={styles.analyticsRow}>
+          <View style={styles.analyticsCell}>
+            <TextRegular textStyle={styles.text}>
+              #Delivered today
+            </TextRegular>
+            <TextSemiBold textStyle={styles.text}>
+              {analytics.numDeliveredTodayOrders}
+            </TextSemiBold>
+          </View>
+          <View style={styles.analyticsCell}>
+            <TextRegular textStyle={styles.text}>
+              #Yesterday orders
+            </TextRegular>
+            <TextSemiBold textStyle={styles.text}>
+              {analytics.numYesterdayOrders}
+            </TextSemiBold>
+          </View>
+        </View>
+      </View>
     )
   }
   const renderHeader = () => {
@@ -153,50 +153,50 @@ export default function OrdersScreen ({ navigation, route }) {
 
   const renderOrder = ({ item }) => {
     return (
-          <ImageCard
-            imageUri={getOrderImage(item.status)}
-            title={`Order created at: ${item.createdAt}`}
-          >
-            <TextSemiBold numberOfLines={2}>{`Status: ${item.status}`}</TextSemiBold>
-            <TextRegular numberOfLines={2}>{`Address: ${item.address}`}</TextRegular>
-            <View style={styles.actionButtonsContainer}>
-              <Pressable
-                onPress={() => navigation.navigate('EditOrderScreen', { id: item.id })
-                }
-                style={({ pressed }) => [
-                  {
-                    backgroundColor: pressed
-                      ? GlobalStyles.brandBlueTap
-                      : GlobalStyles.brandBlue
-                  },
-                  styles.actionButton
-                ]}>
-              <View style={[{ flex: 1, flexDirection: 'row', justifyContent: 'center' }]}>
-                <MaterialCommunityIcons name='pencil' color={'white'} size={20}/>
-                <TextRegular textStyle={styles.text}>
-                  Edit
-                </TextRegular>
-              </View>
-            </Pressable>
-            <Pressable
-                onPress={() => { handleNextStatus(item) }}
-                style={({ pressed }) => [
-                  {
-                    backgroundColor: pressed
-                      ? GlobalStyles.brandPrimaryTap
-                      : GlobalStyles.brandPrimary
-                  },
-                  styles.actionButton
-                ]}>
-              <View style={[{ flex: 1, flexDirection: 'row', justifyContent: 'center' }]}>
-                <MaterialCommunityIcons name='skip-next' color={'white'} size={20}/>
-                <TextRegular textStyle={styles.text}>
-                  Advance
-                </TextRegular>
-              </View>
-            </Pressable>
+      <ImageCard
+        imageUri={getOrderImage(item.status)}
+        title={`Order created at: ${item.createdAt}`}
+      >
+        <TextSemiBold numberOfLines={2}>{`Status: ${item.status}`}</TextSemiBold>
+        <TextRegular numberOfLines={2}>{`Address: ${item.address}`}</TextRegular>
+        <View style={styles.actionButtonsContainer}>
+          <Pressable
+            onPress={() => navigation.navigate('EditOrderScreen', { id: item.id })
+            }
+            style={({ pressed }) => [
+              {
+                backgroundColor: pressed
+                  ? GlobalStyles.brandBlueTap
+                  : GlobalStyles.brandBlue
+              },
+              styles.actionButton
+            ]}>
+            <View style={[{ flex: 1, flexDirection: 'row', justifyContent: 'center' }]}>
+              <MaterialCommunityIcons name='pencil' color={'white'} size={20} />
+              <TextRegular textStyle={styles.text}>
+                Edit
+              </TextRegular>
             </View>
-          </ImageCard>
+          </Pressable>
+          <Pressable
+            onPress={() => { handleNextStatus(item) }}
+            style={({ pressed }) => [
+              {
+                backgroundColor: pressed
+                  ? GlobalStyles.brandPrimaryTap
+                  : GlobalStyles.brandPrimary
+              },
+              styles.actionButton
+            ]}>
+            <View style={[{ flex: 1, flexDirection: 'row', justifyContent: 'center' }]}>
+              <MaterialCommunityIcons name='skip-next' color={'white'} size={20} />
+              <TextRegular textStyle={styles.text}>
+                Advance
+              </TextRegular>
+            </View>
+          </Pressable>
+        </View>
+      </ImageCard>
     )
   }
 
@@ -223,16 +223,16 @@ export default function OrdersScreen ({ navigation, route }) {
   }
 
   return (
-      <>
-          <FlatList
-            style={styles.container}
-            data={orders}
-            renderItem={renderOrder}
-            keyExtractor={item => item.id.toString()}
-            ListHeaderComponent={renderHeader}
-            ListEmptyComponent={renderEmptyOrdersList}
-          />
-          </>
+    <>
+      <FlatList
+        style={styles.container}
+        data={orders}
+        renderItem={renderOrder}
+        keyExtractor={item => item.id.toString()}
+        ListHeaderComponent={renderHeader}
+        ListEmptyComponent={renderEmptyOrdersList}
+      />
+    </>
   )
 }
 

@@ -86,7 +86,7 @@ export default function OrdersScreen ({ navigation, route }) {
                 Invoiced today
               </TextRegular>
               <TextSemiBold textStyle={styles.text}>
-              TO DO
+              {order.price}
               </TextSemiBold>
             </View>
             <View style={styles.analyticsCell}>

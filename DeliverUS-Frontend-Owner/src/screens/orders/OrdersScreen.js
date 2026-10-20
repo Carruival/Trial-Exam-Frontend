@@ -39,7 +39,7 @@ export default function OrdersScreen ({ navigation, route }) {
         style: GlobalStyles.flashStyle,
         titleStyle: GlobalStyles.flashTextStyle
       })
-    } 
+    }
   }
 
   const fetchRestaurantOrders = async () => {

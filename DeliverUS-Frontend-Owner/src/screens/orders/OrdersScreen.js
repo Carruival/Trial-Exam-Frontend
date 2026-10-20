@@ -19,7 +19,7 @@ import ImageCard from '../../components/ImageCard'
 export default function OrdersScreen ({ navigation, route }) {
   const [restaurant, setRestaurant] = useState({})
 
-  const [order, setOrder] = useState({})
+  const [orders, setOrder] = useState({})
   const [analytics, setAnalytics] = useState(null)
 
   useEffect(() => {
@@ -86,7 +86,7 @@ export default function OrdersScreen ({ navigation, route }) {
                 Invoiced today
               </TextRegular>
               <TextSemiBold textStyle={styles.text}>
-              {analytics.invoicedToday}
+              {analytics.invoicedToday.tofixed(2)}€
               </TextSemiBold>
             </View>
             <View style={styles.analyticsCell}>
@@ -94,7 +94,7 @@ export default function OrdersScreen ({ navigation, route }) {
                 #Pending orders
               </TextRegular>
               <TextSemiBold textStyle={styles.text}>
-              TO DO
+              {analytics.numPendingOrders}
               </TextSemiBold>
             </View>
           </View>
@@ -105,7 +105,7 @@ export default function OrdersScreen ({ navigation, route }) {
                   #Delivered today
                 </TextRegular>
                 <TextSemiBold textStyle={styles.text}>
-                TO DO
+                {analytics.numDeliveredTodayOrders}
                 </TextSemiBold>
               </View>
               <View style={styles.analyticsCell}>
@@ -113,7 +113,7 @@ export default function OrdersScreen ({ navigation, route }) {
                   #Yesterday orders
                 </TextRegular>
                 <TextSemiBold textStyle={styles.text}>
-                TO DO
+                {analytics.numYesterdayOrders}
                 </TextSemiBold>
               </View>
           </View>
@@ -131,6 +131,9 @@ export default function OrdersScreen ({ navigation, route }) {
             <TextRegular textStyle={styles.description}>{restaurant.restaurantCategory ? restaurant.restaurantCategory.name : ''}</TextRegular>
           </View>
         </ImageBackground>
+        <View style={styles.analyticsContainer}>
+          {renderAnalytics}
+        </View>
       </View>
     )
   }
@@ -149,7 +152,55 @@ export default function OrdersScreen ({ navigation, route }) {
   }
 
   const renderOrder = ({ item }) => {
-
+    return (
+          <ImageCard
+            imageUri={item.logo ? { uri: API_BASE_URL + '/' + item.logo } : getOrderImage(orders.getStatus)}
+            title={item.name}
+          >
+            <TextRegular numberOfLines={2}>{item.description}</TextRegular>
+            {item.averageServiceMinutes !== null &&
+              <TextSemiBold>Avg. service time: <TextSemiBold textStyle={{ color: GlobalStyles.brandPrimary }}>{item.averageServiceMinutes} min.</TextSemiBold></TextSemiBold>
+            }
+            <TextSemiBold>Shipping: <TextSemiBold textStyle={{ color: GlobalStyles.brandPrimary }}>{item.shippingCosts.toFixed(2)}€</TextSemiBold></TextSemiBold>
+            <View style={styles.actionButtonsContainer}>
+              <Pressable
+                onPress={() => navigation.navigate('EditRestaurantScreen', { id: item.id })
+                }
+                style={({ pressed }) => [
+                  {
+                    backgroundColor: pressed
+                      ? GlobalStyles.brandBlueTap
+                      : GlobalStyles.brandBlue
+                  },
+                  styles.actionButton
+                ]}>
+              <View style={[{ flex: 1, flexDirection: 'row', justifyContent: 'center' }]}>
+                <MaterialCommunityIcons name='pencil' color={'white'} size={20}/>
+                <TextRegular textStyle={styles.text}>
+                  Edit
+                </TextRegular>
+              </View>
+            </Pressable>
+            <Pressable
+                onPress={() => { setRestaurantToBeDeleted(item) }}
+                style={({ pressed }) => [
+                  {
+                    backgroundColor: pressed
+                      ? GlobalStyles.brandPrimaryTap
+                      : GlobalStyles.brandPrimary
+                  },
+                  styles.actionButton
+                ]}>
+              <View style={[{ flex: 1, flexDirection: 'row', justifyContent: 'center' }]}>
+                <MaterialCommunityIcons name='delete' color={'white'} size={20}/>
+                <TextRegular textStyle={styles.text}>
+                  Advance
+                </TextRegular>
+              </View>
+            </Pressable>
+            </View>
+          </ImageCard>
+    )
   }
 
   const renderEmptyOrdersList = () => {
@@ -175,7 +226,16 @@ export default function OrdersScreen ({ navigation, route }) {
   }
 
   return (
-      <></>
+      <>
+          <FlatList
+            style={styles.container}
+            data={orders}
+            renderItem={renderOrder}
+            keyExtractor={item => item.id.toString()}
+            ListHeaderComponent={renderHeader}
+            ListEmptyComponent={renderEmptyOrdersList}
+          />
+          </>
   )
 }
 

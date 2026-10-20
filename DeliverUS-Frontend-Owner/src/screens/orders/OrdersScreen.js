@@ -154,13 +154,11 @@ export default function OrdersScreen ({ navigation, route }) {
   const renderOrder = ({ item }) => {
     return (
           <ImageCard
-            imageUri={item.logo ? { uri: API_BASE_URL + '/' + item.logo } : getOrderImage(orders.getStatus)}
+            imageUri={getOrderImage(item.status)}
             title={item.name}
           >
             <TextRegular numberOfLines={2}>{item.description}</TextRegular>
-            {item.averageServiceMinutes !== null &&
-              <TextSemiBold>Avg. service time: <TextSemiBold textStyle={{ color: GlobalStyles.brandPrimary }}>{item.averageServiceMinutes} min.</TextSemiBold></TextSemiBold>
-            }
+            
             <TextSemiBold>Shipping: <TextSemiBold textStyle={{ color: GlobalStyles.brandPrimary }}>{item.shippingCosts.toFixed(2)}€</TextSemiBold></TextSemiBold>
             <View style={styles.actionButtonsContainer}>
               <Pressable

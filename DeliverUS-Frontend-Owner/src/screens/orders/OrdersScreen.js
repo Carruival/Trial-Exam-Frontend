@@ -44,8 +44,8 @@ export default function OrdersScreen ({ navigation, route }) {
 
   const fetchRestaurantOrders = async () => {
     try {
-      const order = await getRestaurantOrders(route.params.id)
-      setOrder(order)
+      const restOrder = await getRestaurantOrders(route.params.id)
+      setOrder(restOrder)
     } catch (error) {
       showMessage({
         message: `There was an error while retrieving restaurant orders (id ${route.params.id}). ${error}`,

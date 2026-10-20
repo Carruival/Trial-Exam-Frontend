@@ -155,14 +155,13 @@ export default function OrdersScreen ({ navigation, route }) {
     return (
           <ImageCard
             imageUri={getOrderImage(item.status)}
-            title={item.name}
+            title={`Order created at: ${item.createdAt}`}
           >
-            <TextRegular numberOfLines={2}>{item.description}</TextRegular>
-            
-            <TextSemiBold>Shipping: <TextSemiBold textStyle={{ color: GlobalStyles.brandPrimary }}>{item.shippingCosts.toFixed(2)}€</TextSemiBold></TextSemiBold>
+            <TextSemiBold numberOfLines={2}>{`Status: ${item.status}`}</TextSemiBold>
+            <TextRegular numberOfLines={2}>{`Address: ${item.address}`}</TextRegular>
             <View style={styles.actionButtonsContainer}>
               <Pressable
-                onPress={() => navigation.navigate('EditRestaurantScreen', { id: item.id })
+                onPress={() => navigation.navigate('EditOrderScreen', { id: item.id })
                 }
                 style={({ pressed }) => [
                   {
@@ -180,7 +179,7 @@ export default function OrdersScreen ({ navigation, route }) {
               </View>
             </Pressable>
             <Pressable
-                onPress={() => { setRestaurantToBeDeleted(item) }}
+                onPress={() => { handleNextStatus(item) }}
                 style={({ pressed }) => [
                   {
                     backgroundColor: pressed
@@ -190,7 +189,7 @@ export default function OrdersScreen ({ navigation, route }) {
                   styles.actionButton
                 ]}>
               <View style={[{ flex: 1, flexDirection: 'row', justifyContent: 'center' }]}>
-                <MaterialCommunityIcons name='delete' color={'white'} size={20}/>
+                <MaterialCommunityIcons name='advance' color={'white'} size={20}/>
                 <TextRegular textStyle={styles.text}>
                   Advance
                 </TextRegular>

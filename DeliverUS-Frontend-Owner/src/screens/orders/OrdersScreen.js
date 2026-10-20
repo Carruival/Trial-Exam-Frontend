@@ -132,7 +132,7 @@ export default function OrdersScreen ({ navigation, route }) {
           </View>
         </ImageBackground>
         <View style={styles.analyticsContainer}>
-          {renderAnalytics}
+          {analytics !== null && renderAnalytics()}
         </View>
       </View>
     )

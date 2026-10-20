@@ -30,7 +30,7 @@ export default function OrdersScreen ({ navigation, route }) {
 
   const fetchRestaurantAnalytics = async () => {
     try {
-      const restaurantAnalytics = getRestaurantAnalytics()
+      const restaurantAnalytics = await getRestaurantAnalytics(route.params.id)
       setAnalytics(restaurantAnalytics)
     } catch (error) {
       showMessage({
@@ -44,7 +44,7 @@ export default function OrdersScreen ({ navigation, route }) {
 
   const fetchRestaurantOrders = async () => {
     try {
-      const order = await getRestaurantOrders()
+      const order = await getRestaurantOrders(route.params.id)
       setOrder(order)
     } catch (error) {
       showMessage({

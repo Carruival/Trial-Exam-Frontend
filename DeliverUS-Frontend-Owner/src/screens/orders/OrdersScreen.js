@@ -189,7 +189,7 @@ export default function OrdersScreen ({ navigation, route }) {
                   styles.actionButton
                 ]}>
               <View style={[{ flex: 1, flexDirection: 'row', justifyContent: 'center' }]}>
-                <MaterialCommunityIcons name='advance' color={'white'} size={20}/>
+                <MaterialCommunityIcons name='skip-next' color={'white'} size={20}/>
                 <TextRegular textStyle={styles.text}>
                   Advance
                 </TextRegular>

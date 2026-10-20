@@ -57,7 +57,24 @@ export default function OrdersScreen ({ navigation, route }) {
   }
 
   const handleNextStatus = async (order) => {
-
+    try {
+      await nextStatus(order)
+      showMessage({
+        message: `Order ${order.id} status updated`,
+        type: 'success',
+        style: GlobalStyles.flashStyle,
+        titleStyle: GlobalStyles.flashTextStyle
+      })
+      fetchRestaurantOrders()
+      fetchRestaurantAnalytics()
+    } catch (error) {
+      showMessage({
+        message: `Error advancing order status. ${error}`,
+        type: 'danger',
+        style: GlobalStyles.flashStyle,
+        titleStyle: GlobalStyles.flashTextStyle
+      })
+    }
   }
 
   const renderAnalytics = () => {
